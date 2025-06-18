@@ -15,6 +15,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+    $imid_users = DB::connection('mysql_imid')->table('users')->count();
+    $lupus_users = DB::connection('mysql_lupus')->table('users')->count();
+    $scleroderma_users = DB::connection('mysql_scleroderma')->table('users')->count();
+    //dd($lupus_users);      
+    //dd('IMID '.$imid_users.', Lupus '.$lupus_users.', Scleroderma '.$scleroderma_users);
+
     return view('welcome');
 });
 
