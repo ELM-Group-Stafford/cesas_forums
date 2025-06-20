@@ -15,11 +15,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+    //$cesasforum_users = DB::table('users')->count();
+    $cesasforum_users = DB::connection('mysql')->table('users')->count();
     $imid_users = DB::connection('mysql_imid')->table('users')->count();
     $lupus_users = DB::connection('mysql_lupus')->table('users')->count();
     $scleroderma_users = DB::connection('mysql_scleroderma')->table('users')->count();
     //dd($lupus_users);      
-    //dd('IMID '.$imid_users.', Lupus '.$lupus_users.', Scleroderma '.$scleroderma_users);
+    var_dump('CESAS Forums '.$cesasforum_users.', IMID '.$imid_users.', Lupus '.$lupus_users.', Scleroderma '.$scleroderma_users);
 
     return view('welcome');
 });

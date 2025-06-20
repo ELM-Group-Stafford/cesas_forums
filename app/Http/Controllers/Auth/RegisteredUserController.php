@@ -12,9 +12,21 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
+use Spatie\Honeypot\ProtectAgainstSpam;
 
 class RegisteredUserController extends Controller
 {
+	/**
+     * Create a new controller instance.
+     */
+    public function __construct()
+    {
+        $this->middleware('guest');
+
+        $this->middleware(ProtectAgainstSpam::class)
+            ->only('register');
+    }
+		
     /**
      * Display the registration view.
      */
