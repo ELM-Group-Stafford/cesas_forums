@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\LegalController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+/*
 Route::get('/', function () {
     //$cesasforum_users = DB::table('users')->count();
     $cesasforum_users = DB::connection('mysql')->table('users')->count();
@@ -25,6 +28,18 @@ Route::get('/', function () {
 
     return view('welcome');
 });
+*/
+
+/*Route::get('/', function () {
+    return view('welcome');
+});*/
+
+
+Route::get('/', [RegisterController::class, 'index'])->name('register.index');
+Route::post('/store', [RegisterController::class, 'store'])->name('register.store');
+
+Route::get('legal', [LegalController::class, 'getLegal'])
+    ->name('legal.legal');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
