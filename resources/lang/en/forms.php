@@ -45,7 +45,7 @@ return [
     'country_placeholder' => 'Select a country',
 	'profession_placeholder' => 'Select a profession',
 	
-	'disease_filters' => 'Diseases',
+	'disease_filters' => 'Diseases (For IMID Forum only)',
 	
 	'profession' => 'Profession',
     'country_placeholder' => 'Select a country',

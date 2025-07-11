@@ -12,10 +12,10 @@
             @if($availableSpecialityCountArray[$availableSpeciality->speciality_id] > 2)
             <div>
                 <input type="checkbox" 
-                    class="form-group-radio-control" 
+                    class="form-group-radio-control field-disease" 
                     name="spec_{{ $availableSpeciality->speciality_id }}" 
                     id="spec_{{ $availableSpeciality->speciality_id }}"                     
-                    onClick="selectAllR(this.id)">
+                    onClick="selectAllR(this.id)" disabled>
                 <span>{{ trim(trans('general.select_all')) }}</span>
             </div>   
             @endif
@@ -26,8 +26,8 @@
         <input type="checkbox" 
             name="disease[{{ $availableSpeciality->area_id }}]" 
             id="area_{{ $availableSpeciality->area_id }}"
-            class="spec_{{ $availableSpeciality->speciality_id }}" 
-            onClick="selectAreaR(this.id, 'spec_{{ $availableSpeciality->speciality_id }}')"
+            class="spec_{{ $availableSpeciality->speciality_id }} field-disease" 
+            onClick="selectAreaR(this.id, 'spec_{{ $availableSpeciality->speciality_id }}')" disabled>
         <span> {{ $availableSpeciality->area_name }}</span>
     </div>
 

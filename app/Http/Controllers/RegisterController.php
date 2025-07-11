@@ -13,8 +13,7 @@ class RegisterController extends Controller
         return view('register-member');
     }
 
-    public function store(){
-        $aaa = 123;
-        dd($aaa);
+    public function store(Request $request){
+        dd($request);
     }
 }

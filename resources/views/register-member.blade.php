@@ -12,6 +12,12 @@
 <main class="bg-gradient-primary pad-v-m">
     <div class="container">
         <form method="POST" action="{{ route('register.store') }}">
+            @csrf
+            <x-honeypot />
+            <input type="hidden" name="a" value="">
+            <input type="hidden" name="b" value="{{ time() }}">
+            <input type="hidden" name="c" value="32491655339144968535">
+
             <div class="card">
                 <h1>{{ trans('register.header.heading') }}</h1>
 
@@ -20,30 +26,23 @@
                 <div class="grid-container">                    
                     <div class="grid-item-register inline-checkbox">
                         <label for="imid_select">IMID Forum</label>
-                        <input type="checkbox" id="imid_select" name="imid_select" value="imid">                        
+                        <input type="checkbox" class="messageChecked" id="imid_select" name="imid_select" value="imid" onChange="toggleEnabled();">
                     </div>
 
                     <div class="grid-item-register inline-checkbox">
                         <label for="lupus_select">Lupus Forum</label>
-                        <input type="checkbox" id="lupus_select" name="lupus_select" value="lupus">
+                        <input type="checkbox" class="messageChecked" id="lupus_select" name="lupus_select" value="lupus" onChange="toggleEnabled();">
                     </div>
 
                     <div class="grid-item-register inline-checkbox">
                         <label for="scleroderma_select">Scleroderma Forum</label>
-                        <input type="checkbox" id="scleroderma_select" name="scleroderma_select" value="scleroderma">
+                        <input type="checkbox" class="messageChecked" id="scleroderma_select" name="scleroderma_select" value="scleroderma" onChange="toggleEnabled();">
                     </div>
                 </div>
-
-
             </div><br />
 
             <div class="card">
             
-                @csrf
-                <x-honeypot />
-                <input type="hidden" name="a" value="">
-                <input type="hidden" name="b" value="{{ time() }}">
-                <input type="hidden" name="c" value="32491655339144968535">
 
                 @include('partials.validation-errors')
 
@@ -57,7 +56,7 @@
                             class="field-text"
                             placeholder="{{ trans('forms.first_name_placeholder') }}"
                             value="{{ old('first_name') }}"
-                            required
+                            required disabled
                             autocomplete="first_name"
                             @testhook('field-first-name') />
                     </label>
@@ -71,7 +70,7 @@
                             class="field-text"
                             placeholder="{{ trans('forms.last_name_placeholder') }}"
                             value="{{ old('last_name') }}"
-                            required
+                            required disabled
                             autocomplete="last_name"
                             @testhook('field-last-name') />
                     </label>
@@ -85,7 +84,7 @@
                             class="field-text"
                             placeholder="{{ trans('forms.email_placeholder') }}"
                             value="{{ old('email') }}"
-                            required
+                            required disabled
                             autocomplete="email"
                             autofocus
                             @testhook('field-email') />
@@ -98,7 +97,7 @@
                             name="country"
                             class="field-text"
                             :placeholder="trans('forms.country_placeholder')"
-                            required
+                            required disabled
                             :value="old('country')" />
                     </label>
 
@@ -110,6 +109,7 @@
                             class="field-text"
                             value="{{ old('institution') }}"
                             placeholder="{{ trans('forms.institution_placeholder') }}"
+                            disabled
                             autocomplete="organization"
                             @testhook('field-institution') />
                     </label>
@@ -122,6 +122,7 @@
                             class="field-text"
                             value="{{ old('department') }}"
                             placeholder="{{ trans('forms.department_placeholder') }}"
+                            disabled
                             autocomplete="organization"
                             @testhook('field-department') />
                     </label>
@@ -134,7 +135,7 @@
                             class="field-text"
                             onChange="toggleSpeciality()"
                             :placeholder="trans('forms.speciality_placeholder')"
-                            required
+                            required disabled
                             :value="old('user_speciality_id')" />
 
                             <input
@@ -154,7 +155,7 @@
                             name="profession_id"
                             class="field-text"
                             :placeholder="trans('forms.profession_placeholder')"
-                            required
+                            required disabled
                             :value="old('profession_id')" />
                     </label>                       
 
@@ -166,7 +167,7 @@
                             name="password"
                             class="field-text"
                             placeholder=" "
-                            required
+                            required disabled
                             autocomplete="new-password"
                             @testhook('field-password') />
                     </label>
@@ -179,7 +180,7 @@
                             name="password_confirmation"
                             class="field-text"
                             placeholder=" "
-                            required
+                            required disabled
                             autocomplete="new-password"
                             @testhook('field-password-confirmation') />
                     </label>
@@ -202,8 +203,8 @@
                                         name="display-my-information"
                                         id="display-my-information-yes"
                                         value="1"                
-                                        required
-                                        class="m-t-s-3 m-l-0"
+                                        required disabled
+                                        class="m-t-s-3 m-l-0 field-text"
                                         @testhook('field-display-my-information-yes')
                                     /> {{ trans('forms.yes') }}</label>
                                     <label
@@ -214,8 +215,9 @@
                                         name="display-my-information"
                                         id="display-my-information-no"
                                         value=0
-                                        required
-                                        class="m-l-lg"
+                                        required disabled
+                                        class="m-l-lg field-text"
+                                        
                                         @testhook('field-display-my-information-no')
                                     /> {{ trans('forms.no') }}</label>
                                 </span>
@@ -236,7 +238,7 @@
                                             id="content_update_frequency"
                                             name="content_update_frequency"
                                             class="field-text"
-                                            required
+                                            required disabled
                                             :value="old('content_update_frequency')" />
                                     </div>
                                 </span>
@@ -250,8 +252,8 @@
                                 <span>
                                     {{ trans('forms.accepts_marketing', ['site' => env('APP_NAME')]) }} <x-required/>
                                     <br>
-                                    <label for="marketing-messages-by-email-yes" class="inline-block"><input style="margin-top: 14px; margin-left:0;" type="radio" name="marketing_preferences" id="marketing-messages-by-email-yes" value="yes" required> Yes</label>
-                                    <label for="marketing-messages-by-email-no" class="inline-block"><input style="margin-left: 24px;" type="radio" name="marketing_preferences" id="marketing-messages-by-email-no" value="no" required> No</label>
+                                    <label for="marketing-messages-by-email-yes" class="inline-block"><input class="field-text" style="margin-top: 14px; margin-left:0;" type="radio" name="marketing_preferences" id="marketing-messages-by-email-yes" value="yes" required disabled> Yes</label>
+                                    <label for="marketing-messages-by-email-no" class="inline-block"><input class="field-text" style="margin-left: 24px;" type="radio" name="marketing_preferences" id="marketing-messages-by-email-no" value="no" required disabled> No</label>
                                 </span>
                             </div>
                         </div>
@@ -263,14 +265,15 @@
 
                 <p>By creating accounts, you are agreeing to the <a href="{{ route('legal.legal') }}">terms and conditions</a> of this site.</p>
 
-                <div class="actions pad-b-0 pad-b-s-sm">
-                    <span class="action-flexible-space"></span>
-                    <button
-                        type="submit"
-                        class="btn btn-primary action"
-                        @testhook('register-form-submit')>{{ trans('register.submit') }}</button>
+                <div id="submitButton" style="display:none;">
+                    <div class="actions pad-b-0 pad-b-s-sm">
+                        <span class="action-flexible-space"></span>
+                        <button                        
+                            type="submit"
+                            class="btn btn-primary action"
+                            @testhook('register-form-submit')>{{ trans('register.submit') }}</button>
+                    </div>
                 </div>
-
             </div>
         </form>
     </div>
@@ -281,3 +284,50 @@
 @section('footer')
     <h2>This is the footer</h2>
 @endsection
+
+
+<script>
+
+function toggleEnabled(){
+    const checkboxes = document.querySelectorAll('.messageChecked')
+    let count=0
+    checkboxes.forEach(checkbox=>{
+        if(checkbox.checked) count+=1
+    })
+
+    const fieldTexts = document.getElementsByClassName("field-text");
+    for (let i = 0; i < fieldTexts.length; i++) {
+        if(count == 0) {
+            fieldTexts.item(i).value = "";            
+            fieldTexts.item(11).checked = false;
+            fieldTexts.item(12).checked = false;
+            fieldTexts.item(13).value = "never";            
+            fieldTexts.item(14).checked = false;
+            fieldTexts.item(15).checked = false;
+
+            fieldTexts.item(i).disabled = true;            
+        }else{
+            fieldTexts.item(i).disabled = false;
+        }       
+    }
+    
+    const fieldDiseases = document.getElementsByClassName("field-disease");
+    for (let i = 0; i < fieldDiseases.length; i++) {
+      if (document.getElementById('imid_select').checked) {        
+        fieldDiseases.item(i).disabled = false;
+       }else{
+        fieldDiseases.item(i).checked = false;
+        fieldDiseases.item(i).disabled = true;
+       }
+    }
+    //alert(count);
+
+
+    if(count == 0) {
+        document.getElementById('submitButton').style.display = 'none';
+    }else{
+        document.getElementById('submitButton').style.display = 'block';
+    }
+}
+
+</script>
